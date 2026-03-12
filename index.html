@@ -1,0 +1,1571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>AquaFresh Waters — Cleanse Your Nerves</title>
+<!--
+╔══════════════════════════════════════════════════════════════════╗
+║  AQUAFRESH WATERS · v4.0 · Rivers State, Nigeria                ║
+║  Single HTML file — edit the CONFIG block in the <script>        ║
+║  section at the bottom to change prices, phone numbers,          ║
+║  webhook URL, WhatsApp number, delivery zones etc.               ║
+║                                                                  ║
+║  Hosting: Upload as index.html to GitHub Pages (free)            ║
+║  Images: All Unsplash (no attribution required for web use)      ║
+╚══════════════════════════════════════════════════════════════════╝
+-->
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* ════════════════════════════════════════════
+   DESIGN TOKENS — change brand here
+   ════════════════════════════════════════════ */
+:root {
+  --bl:  #0071c2;   /* brand blue */
+  --bld: #004f8a;   /* dark blue  */
+  --blm: #2b8fd4;   /* mid blue   */
+  --bll: #5ab0e8;   /* light blue */
+  --w:   #ffffff;
+  --off: #f5f8fc;
+  --ice: #e8f3fb;
+  --pale:#d4ebf7;
+  --tx:  #0d1b2a;   /* primary text */
+  --mid: #2d4a6a;
+  --mu:  #6b85a0;
+  --br:  rgba(0,113,194,.1);
+  --sh:  0 4px 40px rgba(0,80,160,.09);
+  --shl: 0 12px 60px rgba(0,80,160,.16);
+  --r:   18px;
+  --rsm: 12px;
+}
+
+/* ── Reset ── */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--off);color:var(--tx);overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+img{display:block;width:100%;height:100%;object-fit:cover;}
+a{text-decoration:none;}
+
+/* ── Nav ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;height:68px;padding:0 5vw;display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,.88);backdrop-filter:blur(24px);border-bottom:1px solid rgba(0,113,194,.07);transition:all .3s;}
+nav.scrolled{background:rgba(255,255,255,.97);box-shadow:0 2px 20px rgba(0,80,160,.06);}
+.logo{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700;color:var(--tx);letter-spacing:-.02em;}
+.logo span{color:var(--bl);}
+.nav-links{display:flex;align-items:center;gap:2rem;list-style:none;}
+.nav-links a{font-size:.83rem;font-weight:500;color:var(--mid);transition:color .2s;}
+.nav-links a:hover{color:var(--bl);}
+.nav-cta{background:var(--bl)!important;color:#fff!important;padding:.45rem 1.3rem;border-radius:100px;font-weight:600!important;}
+.nav-cta:hover{background:var(--bld)!important;}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}
+.hamburger span{width:22px;height:2px;background:var(--tx);border-radius:2px;display:block;transition:all .3s;}
+.mob-nav{display:none;position:fixed;top:68px;left:0;right:0;background:rgba(255,255,255,.98);backdrop-filter:blur(20px);padding:1.5rem 5vw 2rem;z-index:999;border-bottom:1px solid var(--br);flex-direction:column;gap:1.2rem;}
+.mob-nav.open{display:flex;}
+.mob-nav a{font-size:1rem;color:var(--mid);font-weight:500;}
+
+/* ── Section base ── */
+section{padding:96px 5vw;}
+.inner{max-width:1200px;margin:0 auto;}
+.lbl{font-size:.71rem;font-weight:700;color:var(--bl);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.65rem;}
+.h2{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,4.5vw,3.5rem);font-weight:700;color:var(--tx);line-height:1.08;letter-spacing:-.025em;margin-bottom:.7rem;}
+.h2 em{font-style:italic;color:var(--bl);}
+.sub{font-size:.95rem;color:var(--mu);line-height:1.75;max-width:500px;margin-bottom:3.5rem;}
+
+/* ── Reveal ── */
+.rv{opacity:0;transform:translateY(22px);transition:opacity .65s ease,transform .65s ease;}
+.rv.late{transition-delay:.14s;}
+.rv.vis{opacity:1;transform:none;}
+
+/* ── Buttons ── */
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.88rem 2rem;border-radius:100px;font-size:.88rem;font-weight:600;font-family:'DM Sans',sans-serif;transition:all .25s;cursor:pointer;border:none;}
+.btn-blue{background:var(--bl);color:#fff;}
+.btn-blue:hover{background:var(--bld);transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,113,194,.3);}
+.btn-tg{background:#0088cc;color:#fff;}
+.btn-tg:hover{background:#006fa3;transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,136,204,.3);}
+.btn-ghost{background:transparent;color:var(--tx);border:1.5px solid var(--br);}
+.btn-ghost:hover{border-color:var(--bl);color:var(--bl);transform:translateY(-2px);}
+
+/* ════════════════════════════════════════════
+   HERO
+   ════════════════════════════════════════════ */
+#hero{min-height:100vh;display:flex;align-items:center;padding:68px 5vw 0;background:var(--w);position:relative;overflow:hidden;}
+.hbg{position:absolute;inset:0;z-index:0;}
+.hbg img{opacity:.04;filter:saturate(0);}
+.hgrad{position:absolute;inset:0;z-index:1;background:linear-gradient(135deg,rgba(255,255,255,1) 35%,rgba(200,230,248,.18) 100%);}
+.hgrid{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:3rem;max-width:1200px;margin:0 auto;width:100%;padding:70px 0;}
+.hbadge{display:inline-flex;align-items:center;gap:.5rem;background:var(--ice);border:1px solid var(--pale);padding:.35rem .95rem;border-radius:100px;font-size:.71rem;font-weight:700;color:var(--bl);letter-spacing:.08em;text-transform:uppercase;margin-bottom:1.5rem;animation:fadeUp .8s ease both;}
+.hbadge::before{content:'';width:7px;height:7px;background:var(--bl);border-radius:50%;animation:dotpulse 2s infinite;}
+.htitle{font-family:'Cormorant Garamond',serif;font-size:clamp(3.5rem,7vw,6.5rem);font-weight:700;line-height:1.0;letter-spacing:-.035em;color:var(--tx);margin-bottom:.7rem;animation:fadeUp .8s .1s ease both;}
+.htitle em{font-style:italic;color:var(--bl);}
+.hslogan{font-size:.78rem;font-weight:700;color:var(--mu);letter-spacing:.15em;text-transform:uppercase;margin-bottom:1.5rem;animation:fadeUp .8s .15s ease both;}
+.hdesc{font-size:1.05rem;color:var(--mid);line-height:1.8;max-width:450px;margin-bottom:2.5rem;animation:fadeUp .8s .2s ease both;}
+.hbtns{display:flex;gap:.85rem;flex-wrap:wrap;animation:fadeUp .8s .28s ease both;}
+.hstats{display:flex;gap:2.5rem;margin-top:2.5rem;animation:fadeUp .8s .38s ease both;}
+.stat-n{font-family:'Cormorant Garamond',serif;font-size:2.1rem;font-weight:700;color:var(--tx);line-height:1;}
+.stat-l{font-size:.7rem;font-weight:600;color:var(--mu);text-transform:uppercase;letter-spacing:.07em;margin-top:.2rem;}
+
+/* Image stack */
+.hvisual{display:flex;justify-content:center;align-items:center;animation:fadeUp .8s .18s ease both;}
+.istack{position:relative;width:380px;height:480px;}
+.sc{position:absolute;border-radius:22px;overflow:hidden;box-shadow:var(--shl);}
+.sc1{width:245px;height:305px;top:0;right:0;transform:rotate(3.5deg);}
+.sc2{width:265px;height:325px;bottom:0;left:0;transform:rotate(-2deg);z-index:2;}
+.sfloat{position:absolute;background:white;border:1px solid var(--br);border-radius:14px;padding:.7rem 1rem;box-shadow:var(--sh);z-index:3;}
+.sf1{top:18px;left:0;width:148px;}
+.sf2{bottom:55px;right:0;width:155px;}
+.fl{font-size:.63rem;font-weight:700;color:var(--mu);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.2rem;}
+.fv{font-family:'Cormorant Garamond',serif;font-size:1.08rem;font-weight:700;color:var(--tx);}
+.fs{font-size:.72rem;color:var(--bl);font-weight:600;}
+
+/* ════════════════════════════════════════════
+   ABOUT (dark)
+   ════════════════════════════════════════════ */
+#about{background:var(--tx);padding:80px 5vw;}
+.agrid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;max-width:1200px;margin:0 auto;}
+.atxt h2{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,4vw,3rem);font-weight:700;color:#fff;line-height:1.15;margin-bottom:1.2rem;}
+.atxt h2 em{font-style:italic;color:var(--bll);}
+.atxt p{font-size:.95rem;color:rgba(255,255,255,.5);line-height:1.85;margin-bottom:1.5rem;}
+.zonechips{display:flex;flex-wrap:wrap;gap:.6rem;}
+.zchip{display:inline-flex;align-items:center;gap:.4rem;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.6);padding:.42rem .9rem;border-radius:100px;font-size:.8rem;font-weight:500;}
+.aphoto{border-radius:22px;overflow:hidden;height:340px;position:relative;}
+.aoverlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(13,27,42,.65),transparent);}
+.acap{position:absolute;bottom:1.2rem;left:1.2rem;color:#fff;}
+.acap h4{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:700;}
+.acap p{font-size:.78rem;color:rgba(255,255,255,.6);}
+
+/* ════════════════════════════════════════════
+   LIFESTYLE CARDS (5 scenes)
+   ════════════════════════════════════════════ */
+#scenes{background:var(--off);padding:80px 5vw;}
+.sg3{display:grid;grid-template-columns:repeat(3,1fr);gap:1.3rem;}
+.sg2{display:grid;grid-template-columns:repeat(2,1fr);gap:1.3rem;margin-top:1.3rem;}
+.scard{border-radius:var(--r);overflow:hidden;position:relative;height:370px;cursor:pointer;transition:transform .3s;}
+.scard:hover{transform:scale(1.025);}
+.scard img{transition:transform .4s;}
+.scard:hover img{transform:scale(1.07);}
+.soverlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,37,64,.88) 0%,rgba(10,37,64,.12) 55%,transparent 100%);}
+.scontent{position:absolute;bottom:0;left:0;right:0;padding:1.5rem;}
+.stag{display:inline-block;background:var(--bl);color:#fff;padding:.22rem .65rem;border-radius:100px;font-size:.67rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.55rem;}
+.stitle{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:700;color:#fff;line-height:1.2;margin-bottom:.3rem;}
+.squote{font-size:.77rem;color:rgba(255,255,255,.62);font-style:italic;line-height:1.5;}
+
+/* ════════════════════════════════════════════
+   PRODUCTS
+   ════════════════════════════════════════════ */
+#products{background:var(--w);}
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(265px,1fr));gap:1.5rem;}
+.pcard{background:var(--w);border:1.5px solid var(--br);border-radius:var(--r);overflow:hidden;transition:all .3s;cursor:pointer;}
+.pcard:hover{transform:translateY(-5px);box-shadow:var(--shl);border-color:rgba(0,113,194,.25);}
+.pimg{height:185px;overflow:hidden;background:var(--ice);position:relative;}
+.pimg img{transition:transform .4s;}
+.pcard:hover .pimg img{transform:scale(1.07);}
+.pbadge{position:absolute;top:.75rem;right:.75rem;padding:.2rem .65rem;border-radius:100px;font-size:.64rem;font-weight:700;text-transform:uppercase;}
+.pbody{padding:1.3rem;}
+.pname{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:700;color:var(--tx);margin-bottom:.3rem;}
+.pdesc{font-size:.8rem;color:var(--mu);line-height:1.6;margin-bottom:.9rem;}
+.pfooter{display:flex;align-items:center;justify-content:space-between;}
+.pprice{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:700;color:var(--bl);}
+.pprice span{font-size:.72rem;font-weight:400;color:var(--mu);font-family:'DM Sans',sans-serif;}
+.pobtn{background:var(--ice);border:1px solid var(--pale);color:var(--bl);padding:.4rem .95rem;border-radius:100px;font-size:.75rem;font-weight:600;cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif;}
+.pobtn:hover{background:var(--bl);color:#fff;border-color:var(--bl);}
+
+/* ════════════════════════════════════════════
+   BULK
+   ════════════════════════════════════════════ */
+#bulk{background:linear-gradient(135deg,#0a1f3d,#0d2d52);padding:80px 5vw;}
+.bgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:2.5rem;}
+.bcard{background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.09);border-radius:var(--r);padding:2rem;transition:all .3s;position:relative;overflow:hidden;}
+.bcard::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--blm),var(--bll));}
+.bcard:hover{background:rgba(255,255,255,.09);transform:translateY(-4px);}
+.bcard.feat{background:rgba(0,113,194,.15);border-color:rgba(0,113,194,.4);}
+.bcard.feat::before{background:linear-gradient(90deg,#00b4d8,#0071c2);}
+.bpop{position:absolute;top:1rem;right:1rem;background:var(--bl);color:#fff;padding:.2rem .6rem;border-radius:100px;font-size:.63rem;font-weight:700;text-transform:uppercase;}
+.bicon{font-size:2.5rem;margin-bottom:1rem;}
+.btitle{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:700;color:#fff;margin-bottom:.4rem;}
+.bprice{font-size:.82rem;color:rgba(255,255,255,.45);margin-bottom:1.2rem;}
+.bfree{font-size:.82rem;font-weight:700;color:#4ade80;margin-bottom:.75rem;}
+.bperks{display:flex;flex-direction:column;gap:.4rem;}
+.bperks div{font-size:.8rem;color:rgba(255,255,255,.55);display:flex;align-items:center;gap:.5rem;}
+.bperks div::before{content:'✓';color:var(--bll);font-weight:700;}
+
+/* ════════════════════════════════════════════
+   ORDER FORM
+   ════════════════════════════════════════════ */
+#order{background:var(--off);}
+.olayout{display:grid;grid-template-columns:1fr 1.3fr;gap:4rem;align-items:start;}
+.osteps{display:flex;flex-direction:column;gap:1.5rem;margin-top:2rem;}
+.ostep{display:flex;gap:1rem;align-items:flex-start;}
+.onum{width:36px;height:36px;background:var(--ice);border:1.5px solid var(--pale);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:700;color:var(--bl);flex-shrink:0;margin-top:2px;}
+.otitle{font-size:.9rem;font-weight:600;color:var(--tx);margin-bottom:.2rem;}
+.odesc{font-size:.8rem;color:var(--mu);line-height:1.6;}
+.payinfo{margin-top:1.5rem;padding:1.2rem;background:var(--ice);border:1px solid var(--pale);border-radius:var(--rsm);}
+.payinfo-l{font-size:.72rem;font-weight:700;color:var(--bl);margin-bottom:.4rem;letter-spacing:.05em;text-transform:uppercase;}
+.payinfo-m{display:flex;gap:.9rem;flex-wrap:wrap;}
+.payinfo-m span{font-size:.82rem;color:var(--mid);font-weight:500;}
+/* form card */
+.fcard{background:var(--w);border:1.5px solid var(--br);border-radius:24px;padding:2.5rem;box-shadow:var(--sh);}
+.fhead{font-family:'Cormorant Garamond',serif;font-size:1.75rem;font-weight:700;color:var(--tx);margin-bottom:.3rem;}
+.fsub{font-size:.8rem;color:var(--mu);margin-bottom:1.5rem;}
+.fprog{display:flex;gap:.4rem;margin-bottom:1.5rem;}
+.pd{height:3px;flex:1;background:var(--br);border-radius:2px;transition:background .3s;}
+.pd.on{background:var(--bl);}
+.fstep{display:none;}
+.fstep.on{display:block;}
+.fg{margin-bottom:1.1rem;}
+.flbl{display:block;font-size:.72rem;font-weight:700;color:var(--mid);letter-spacing:.05em;text-transform:uppercase;margin-bottom:.35rem;}
+.fi,.fsel,.fta{width:100%;padding:.78rem 1rem;background:var(--off);border:1.5px solid var(--br);border-radius:var(--rsm);font-size:.88rem;font-family:'DM Sans',sans-serif;color:var(--tx);transition:all .2s;outline:none;}
+.fi:focus,.fsel:focus,.fta:focus{border-color:var(--bl);box-shadow:0 0 0 3px rgba(0,113,194,.08);background:var(--w);}
+.fsel{cursor:pointer;}
+.fta{resize:vertical;min-height:75px;line-height:1.6;}
+/* qty pickers */
+.ppicker{padding:.8rem 1rem;background:var(--off);border-radius:var(--rsm);border:1.5px solid var(--br);margin-bottom:.7rem;}
+.ptop{display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem;}
+.pn{font-size:.86rem;font-weight:600;color:var(--tx);}
+.pp{font-size:.82rem;color:var(--bl);font-weight:600;}
+.pctrl{display:flex;align-items:center;gap:.7rem;}
+.qb{width:30px;height:30px;border:1.5px solid var(--br);background:var(--w);border-radius:7px;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;transition:all .2s;font-weight:700;}
+.qb:hover{border-color:var(--bl);color:var(--bl);}
+.qv{font-size:.9rem;font-weight:700;min-width:22px;text-align:center;color:var(--tx);}
+.ototal{display:flex;justify-content:space-between;align-items:center;padding:.75rem 1rem;background:var(--ice);border-radius:var(--rsm);margin-bottom:.75rem;border:1px solid var(--pale);}
+.otlbl{font-size:.8rem;font-weight:600;color:var(--mid);}
+.otval{font-size:1.1rem;font-weight:700;color:var(--bl);font-family:'Cormorant Garamond',serif;}
+/* payment */
+.paymethods{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem;margin-bottom:1rem;}
+.payopt{border:1.5px solid var(--br);border-radius:var(--rsm);padding:.75rem;text-align:center;cursor:pointer;transition:all .2s;}
+.payopt:hover{border-color:var(--bl);}
+.payopt.sel{border-color:var(--bl);background:var(--ice);}
+.payico{font-size:1.4rem;margin-bottom:.3rem;}
+.paylbl{font-size:.7rem;font-weight:700;color:var(--mid);}
+.payopt.sel .paylbl{color:var(--bl);}
+.payhint{font-size:.78rem;color:var(--mu);padding:.6rem .8rem;background:var(--off);border-radius:var(--rsm);border:1px solid var(--br);margin-bottom:1rem;}
+/* summary */
+.srow{display:flex;justify-content:space-between;align-items:center;padding:.5rem 0;border-bottom:1px solid var(--br);font-size:.85rem;}
+.srow:last-child{border-bottom:none;}
+.sl{color:var(--mu);}
+.sv{color:var(--tx);font-weight:600;}
+/* form nav buttons */
+.fnav{display:flex;gap:.7rem;margin-top:1.5rem;}
+.bnext,.bsubmit{padding:.78rem 1.5rem;border-radius:100px;font-size:.86rem;font-weight:600;font-family:'DM Sans',sans-serif;cursor:pointer;transition:all .2s;border:none;background:var(--bl);color:#fff;flex:1;}
+.bnext:hover,.bsubmit:hover{background:var(--bld);transform:translateY(-1px);}
+.bback{padding:.78rem 1.5rem;background:var(--w);color:var(--mid);border:1.5px solid var(--br);border-radius:100px;font-size:.86rem;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;}
+.bback:hover{border-color:var(--bl);color:var(--bl);}
+/* success */
+#osuccess{display:none;text-align:center;padding:1.5rem 0;}
+.sucico{width:68px;height:68px;background:linear-gradient(135deg,#e8f5e9,#c8e6c9);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.9rem;margin:0 auto 1.5rem;}
+.suctitle{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:700;color:var(--tx);margin-bottom:.5rem;}
+.sucsub{font-size:.86rem;color:var(--mu);line-height:1.7;margin-bottom:1.5rem;}
+.oidchip{display:inline-block;background:var(--ice);border:1px solid var(--pale);color:var(--bl);padding:.4rem 1.1rem;border-radius:100px;font-size:.82rem;font-weight:700;font-family:monospace;margin-bottom:1.5rem;}
+
+/* ════════════════════════════════════════════
+   TRACK
+   ════════════════════════════════════════════ */
+#track{background:var(--w);}
+.tcont{max-width:680px;margin:0 auto;text-align:center;}
+.tcard{background:var(--off);border:1.5px solid var(--br);border-radius:24px;padding:2.5rem;margin-top:2rem;text-align:left;}
+.trow{display:flex;gap:.75rem;}
+.trow .fi{flex:1;}
+.btntrack{padding:.78rem 1.5rem;background:var(--bl);color:#fff;border:none;border-radius:var(--rsm);font-size:.88rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;white-space:nowrap;}
+.btntrack:hover{background:var(--bld);}
+#tres{margin-top:1.5rem;display:none;}
+.tscard{border:1.5px solid var(--br);border-radius:var(--r);padding:1.5rem;background:var(--w);}
+.thead2{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1.5rem;}
+.sbadge{display:inline-flex;align-items:center;gap:.4rem;padding:.3rem .85rem;border-radius:100px;font-size:.74rem;font-weight:700;}
+.s-confirmed{background:#e3f2fd;color:var(--bl);}
+.s-dispatched{background:#e8f5e9;color:#16a34a;}
+.s-pickedup{background:#f3e8ff;color:#7c3aed;}
+.s-delivered{background:#d1fae5;color:#059669;}
+.tl{display:flex;flex-direction:column;gap:0;}
+.tli{display:flex;gap:1rem;position:relative;}
+.tli:not(:last-child)::before{content:'';position:absolute;left:11px;top:24px;bottom:-8px;width:1px;background:var(--br);}
+.tdot{width:24px;height:24px;border-radius:50%;border:2px solid var(--br);background:var(--w);flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;}
+.tdot.done{background:var(--bl);border-color:var(--bl);}
+.tdot.done::after{content:'✓';color:#fff;font-size:.65rem;font-weight:700;}
+.tdot.act{border-color:var(--bl);background:var(--ice);}
+.tlcont{padding-bottom:1.2rem;}
+.tlt{font-size:.85rem;font-weight:600;color:var(--tx);margin-bottom:.15rem;}
+.tld{font-size:.74rem;color:var(--mu);}
+#tnf{display:none;margin-top:1.2rem;text-align:center;padding:1.5rem;background:var(--off);border-radius:var(--rsm);}
+
+/* ════════════════════════════════════════════
+   AGENT PORTAL
+   ════════════════════════════════════════════ */
+#agent{background:var(--tx);padding:100px 5vw;}
+.agent-inner{max-width:1200px;margin:0 auto;}
+.aghead{text-align:center;margin-bottom:3.5rem;}
+.aghead h2{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,4vw,3.2rem);font-weight:700;color:#fff;margin-bottom:.75rem;}
+.aghead h2 em{font-style:italic;color:var(--bll);}
+.aghead p{font-size:.95rem;color:rgba(255,255,255,.48);max-width:500px;margin:0 auto;}
+.aggrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-bottom:2.5rem;}
+.agcard{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:var(--r);padding:2rem;text-align:center;transition:all .3s;position:relative;overflow:hidden;}
+.agcard::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--blm),var(--bll));transform:scaleX(0);transition:transform .3s;}
+.agcard:hover{background:rgba(255,255,255,.08);transform:translateY(-4px);}
+.agcard:hover::after{transform:scaleX(1);}
+.agico{font-size:3rem;margin-bottom:1rem;display:block;}
+.agtitle{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:700;color:#fff;margin-bottom:.5rem;}
+.agcmd{font-family:monospace;font-size:.83rem;font-weight:700;color:var(--bll);background:rgba(0,113,194,.16);padding:.32rem .8rem;border-radius:8px;display:inline-block;margin-bottom:.75rem;}
+.agdesc{font-size:.8rem;color:rgba(255,255,255,.48);line-height:1.65;}
+.jcard{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:var(--r);padding:2rem;margin-bottom:2rem;}
+.jcard h3{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:700;color:#fff;margin-bottom:1.5rem;text-align:center;}
+.jflow{display:flex;align-items:center;justify-content:center;gap:.5rem;flex-wrap:wrap;}
+.jstep{display:flex;flex-direction:column;align-items:center;gap:.4rem;}
+.jico{width:52px;height:52px;background:rgba(0,113,194,.2);border:1px solid rgba(0,113,194,.3);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;}
+.jlbl{font-size:.68rem;font-weight:600;color:rgba(255,255,255,.45);text-align:center;max-width:68px;line-height:1.3;}
+.jarr{color:rgba(255,255,255,.18);font-size:1.2rem;margin-top:-1rem;}
+.agcta{background:linear-gradient(135deg,#0088cc,#005f8a);border-radius:var(--r);padding:2rem;display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap;}
+.agcta h3{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:.35rem;}
+.agcta p{font-size:.83rem;color:rgba(255,255,255,.6);}
+
+/* ════════════════════════════════════════════
+   CONTACT
+   ════════════════════════════════════════════ */
+#contact{background:var(--off);}
+.cgrid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;max-width:1200px;margin:0 auto;}
+.ctitle{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,4vw,3rem);font-weight:700;color:var(--tx);line-height:1.15;margin-bottom:1rem;}
+.ctitle em{font-style:italic;color:var(--bl);}
+.cdesc{font-size:.93rem;color:var(--mu);line-height:1.8;margin-bottom:2rem;}
+.citem{display:flex;align-items:center;gap:1rem;margin-bottom:1.1rem;}
+.cion{width:44px;height:44px;background:var(--ice);border:1px solid var(--pale);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;}
+.cilbl{font-size:.73rem;font-weight:700;color:var(--mu);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.15rem;}
+.cival{font-size:.9rem;color:var(--tx);font-weight:500;}
+.tgcard{background:linear-gradient(135deg,#0088cc,#004f8a);border-radius:var(--r);padding:2.5rem;color:#fff;margin-bottom:1.2rem;}
+.tgcard h3{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700;margin-bottom:.5rem;}
+.tgcard p{font-size:.85rem;color:rgba(255,255,255,.62);line-height:1.6;margin-bottom:1.5rem;}
+.dzones{padding:1.5rem;background:var(--ice);border:1px solid var(--pale);border-radius:var(--r);}
+.dzlbl{font-size:.71rem;font-weight:700;color:var(--bl);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.75rem;}
+.dzgrid{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;}
+.dzitem{font-size:.83rem;color:var(--mid);display:flex;align-items:center;gap:.4rem;font-weight:500;}
+.dzitem::before{content:'✓';color:var(--bl);font-weight:700;}
+
+/* ── Footer ── */
+footer{background:var(--tx);padding:3rem 5vw;}
+.finner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1.5rem;}
+.fbrand{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:700;color:#fff;}
+.fbrand span{color:var(--bll);}
+.flinks{display:flex;gap:1.5rem;list-style:none;}
+.flinks a{font-size:.78rem;color:rgba(255,255,255,.33);transition:color .2s;}
+.flinks a:hover{color:var(--bll);}
+.fcopy{font-size:.78rem;color:rgba(255,255,255,.3);}
+
+/* ── Toast ── */
+.toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(100px);background:var(--tx);color:#fff;padding:.78rem 1.6rem;border-radius:100px;font-size:.85rem;font-weight:500;z-index:5000;transition:transform .4s cubic-bezier(.34,1.56,.64,1);white-space:nowrap;pointer-events:none;}
+.toast.show{transform:translateX(-50%) translateY(0);}
+
+/* ════════════════════════════════════════════
+   CHATBOT
+   ════════════════════════════════════════════ */
+#chatbtn{position:fixed;bottom:2rem;right:2rem;width:60px;height:60px;background:linear-gradient(135deg,var(--bl),var(--bld));border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 8px 30px rgba(0,113,194,.4);z-index:4000;transition:all .3s;border:none;}
+#chatbtn:hover{transform:scale(1.1);}
+#chatbtn svg{color:white;transition:all .3s;}
+#chatbtn .ico-close{display:none;}
+#chatbtn.open .ico-open{display:none;}
+#chatbtn.open .ico-close{display:block;}
+.cpulse{position:absolute;top:0;right:0;width:14px;height:14px;background:#22c55e;border-radius:50%;border:2px solid white;}
+.cpulse::after{content:'';position:absolute;inset:-3px;border-radius:50%;background:rgba(34,197,94,.4);animation:cpulse 2s infinite;}
+@keyframes cpulse{0%,100%{transform:scale(1);opacity:1;}50%{transform:scale(1.6);opacity:0;}}
+#chatwin{position:fixed;bottom:6.5rem;right:2rem;width:360px;max-height:520px;background:var(--w);border:1.5px solid var(--br);border-radius:24px;box-shadow:0 20px 60px rgba(0,80,160,.18);z-index:3999;display:none;flex-direction:column;overflow:hidden;}
+#chatwin.open{display:flex;animation:chatIn .3s cubic-bezier(.34,1.56,.64,1);}
+@keyframes chatIn{from{opacity:0;transform:translateY(20px) scale(.95);}to{opacity:1;transform:none;}}
+.chhead{background:linear-gradient(135deg,var(--bl),var(--bld));padding:1.2rem 1.5rem;display:flex;align-items:center;gap:.85rem;}
+.chav{width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;border:2px solid rgba(255,255,255,.3);}
+.chtitle{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:700;color:#fff;margin-bottom:.1rem;}
+.chstatus{font-size:.72rem;color:rgba(255,255,255,.65);display:flex;align-items:center;gap:.3rem;}
+.chstatus::before{content:'';width:6px;height:6px;background:#22c55e;border-radius:50%;display:inline-block;}
+.chmsg{flex:1;overflow-y:auto;padding:1.2rem;display:flex;flex-direction:column;gap:.75rem;scrollbar-width:thin;scrollbar-color:var(--br) transparent;}
+.msg{max-width:82%;animation:msgin .25s ease;}
+@keyframes msgin{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
+.bot{align-self:flex-start;}
+.usr{align-self:flex-end;}
+.bubble{padding:.7rem 1rem;border-radius:16px;font-size:.83rem;line-height:1.55;}
+.bot .bubble{background:var(--off);border:1px solid var(--br);color:var(--tx);border-bottom-left-radius:4px;}
+.usr .bubble{background:var(--bl);color:#fff;border-bottom-right-radius:4px;}
+.mtime{font-size:.65rem;color:var(--mu);margin-top:.3rem;text-align:right;}
+.bot .mtime{text-align:left;}
+.qrs{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.4rem;}
+.qr{background:var(--w);border:1.5px solid var(--bl);color:var(--bl);padding:.35rem .8rem;border-radius:100px;font-size:.76rem;font-weight:600;cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif;white-space:nowrap;}
+.qr:hover{background:var(--bl);color:#fff;}
+.chcards{display:flex;flex-direction:column;gap:.5rem;margin-top:.5rem;}
+.chcard{display:flex;align-items:center;gap:.85rem;padding:.8rem 1rem;border-radius:14px;cursor:pointer;transition:all .2s;text-decoration:none;border:1.5px solid var(--br);}
+.chcard:hover{transform:translateY(-2px);box-shadow:0 4px 20px rgba(0,80,160,.1);}
+.chcard.tg{background:linear-gradient(135deg,#e8f5ff,#d0ebff);border-color:rgba(0,136,204,.25);}
+.chcard.wa{background:linear-gradient(135deg,#e8fff0,#d0ffe0);border-color:rgba(37,211,102,.25);}
+.chcico{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;}
+.chcard.tg .chcico{background:#0088cc;}
+.chcard.wa .chcico{background:#25D366;}
+.chcinfo h5{font-size:.83rem;font-weight:700;color:var(--tx);margin-bottom:.1rem;}
+.chcinfo p{font-size:.72rem;color:var(--mu);}
+.charr{margin-left:auto;color:var(--mu);font-size:.9rem;}
+.typing{display:flex;align-items:center;gap:.3rem;padding:.6rem .9rem;background:var(--off);border:1px solid var(--br);border-radius:16px;border-bottom-left-radius:4px;width:fit-content;}
+.typing span{width:6px;height:6px;background:var(--mu);border-radius:50%;animation:dot 1.2s infinite;}
+.typing span:nth-child(2){animation-delay:.2s;}
+.typing span:nth-child(3){animation-delay:.4s;}
+@keyframes dot{0%,80%,100%{transform:scale(.6);opacity:.4;}40%{transform:scale(1);opacity:1;}}
+.chfoot{padding:.85rem 1rem;border-top:1px solid var(--br);display:flex;gap:.5rem;align-items:center;}
+.chinput{flex:1;background:var(--off);border:1.5px solid var(--br);border-radius:100px;padding:.55rem 1rem;font-size:.83rem;font-family:'DM Sans',sans-serif;color:var(--tx);outline:none;transition:border-color .2s;}
+.chinput:focus{border-color:var(--bl);}
+.chsend{width:36px;height:36px;background:var(--bl);border:none;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;flex-shrink:0;}
+.chsend:hover{background:var(--bld);}
+.chsend svg{color:white;}
+
+/* ── Animations ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:none;}}
+@keyframes dotpulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.3;transform:scale(.6);}}
+
+/* ── Responsive ── */
+@media(max-width:960px){
+  .hgrid,.agrid,.olayout,.cgrid{grid-template-columns:1fr;}
+  .hvisual{display:none;}
+  .sg3,.bgrid,.aggrid{grid-template-columns:1fr 1fr;}
+  .sg2{max-width:100%;}
+}
+@media(max-width:600px){
+  .nav-links{display:none;}
+  .hamburger{display:flex;}
+  section{padding:70px 5vw;}
+  .sg3,.bgrid,.aggrid{grid-template-columns:1fr;}
+  .sg2{max-width:100%;}
+  .trow{flex-direction:column;}
+  #chatwin{width:calc(100vw - 2rem);right:1rem;bottom:5.5rem;}
+}
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════
+     NAV
+     ════════════════════════════════════════════ -->
+<nav id="nav">
+  <a href="#hero" class="logo">Aqua<span>Fresh</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#products">Products</a></li>
+    <li><a href="#bulk">Bulk Deals</a></li>
+    <li><a href="#order">Order</a></li>
+    <li><a href="#track">Track</a></li>
+    <li><a href="#agent">Agents</a></li>
+    <li><a href="#order" class="nav-cta">Order Now</a></li>
+  </ul>
+  <button class="hamburger" onclick="toggleNav()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mob-nav" id="mobnav">
+  <a href="#about"    onclick="closeNav()">About</a>
+  <a href="#products" onclick="closeNav()">Products</a>
+  <a href="#bulk"     onclick="closeNav()">Bulk Deals</a>
+  <a href="#order"    onclick="closeNav()">Order Now</a>
+  <a href="#track"    onclick="closeNav()">Track Order</a>
+  <a href="#agent"    onclick="closeNav()">Agent Portal</a>
+  <a href="#contact"  onclick="closeNav()">Contact</a>
+</div>
+
+<!-- ════════════════════════════════════════════
+     HERO
+     Imagery: Water being poured into a clean glass
+     ════════════════════════════════════════════ -->
+<section id="hero">
+  <!-- Background: pure water texture, very faint -->
+  <div class="hbg">
+    <img src="https://images.unsplash.com/photo-1502810190503-8303352d0dd1?w=1600&q=80" alt="">
+  </div>
+  <div class="hgrad"></div>
+  <div class="hgrid">
+    <div>
+      <div class="hbadge">Rivers State Delivery · Est. 2024</div>
+      <h1 class="htitle">Pure Water,<br><em>Delivered</em><br>To You.</h1>
+      <p class="hslogan">— Cleanse Your Nerves —</p>
+      <p class="hdesc">Fresh, certified clean water delivered across Port Harcourt and Rivers State. Order in minutes, arrive in hours — straight to your door.</p>
+      <div class="hbtns">
+        <a href="#order" class="btn btn-blue">
+          <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+          Order Now
+        </a>
+        <a href="https://t.me/jazmynewater_bot" target="_blank" class="btn btn-tg">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.248l-2.008 9.461c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.871.76z"/></svg>
+          Telegram Bot
+        </a>
+        <a href="#track" class="btn btn-ghost">Track Order →</a>
+      </div>
+      <div class="hstats">
+        <div><div class="stat-n">4</div><div class="stat-l">Delivery Zones</div></div>
+        <div><div class="stat-n">2–3h</div><div class="stat-l">Avg Delivery</div></div>
+        <div><div class="stat-n">100%</div><div class="stat-l">Certified Clean</div></div>
+      </div>
+    </div>
+    <!-- Hero: water poured into glass, crystal clear -->
+    <div class="hvisual">
+      <div class="istack">
+        <!-- Water being poured — clean, clear, pure -->
+        <div class="sc sc1">
+          <img src="https://images.unsplash.com/photo-1548839140-29a749e1cf4d?w=600&q=80"
+               alt="Clean water being poured into glass">
+        </div>
+        <!-- Crystal clear water in a glass close-up -->
+        <div class="sc sc2">
+          <img src="https://images.unsplash.com/photo-1559839914-17aae19cec71?w=600&q=80"
+               alt="Pure clear water glass close-up">
+        </div>
+        <div class="sfloat sf1">
+          <div class="fl">Best Seller</div>
+          <div class="fv">20L Keg Refill</div>
+          <div class="fs">₦1,500 only</div>
+        </div>
+        <div class="sfloat sf2">
+          <div class="fl">Delivery Time</div>
+          <div class="fv">2–3 Hours</div>
+          <div class="fs">Port Harcourt</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     ABOUT (dark section)
+     Imagery: Clean water / delivery context
+     ════════════════════════════════════════════ -->
+<section id="about">
+  <div class="agrid">
+    <div class="atxt rv">
+      <div class="lbl" style="color:var(--bll);">About AquaFresh</div>
+      <h2>Water you can<br><em>trust</em>, every time.</h2>
+      <p>AquaFresh Waters delivers certified clean water across Rivers State. Our automated system processes your order instantly, assigns the nearest agent, and dispatches — no phone calls needed.</p>
+      <div class="zonechips">
+        <span class="zchip">Port Harcourt City</span>
+        <span class="zchip">Obio-Akpor</span>
+        <span class="zchip">Eleme / Oyigbo</span>
+        <span class="zchip">Ikwerre / Emohua</span>
+      </div>
+    </div>
+    <!-- Clean water source / pure water imagery -->
+    <div class="aphoto rv late">
+      <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&q=80"
+           alt="Pure clean water source">
+      <div class="aoverlay"></div>
+      <div class="acap">
+        <h4>Rivers State, Nigeria</h4>
+        <p>Serving 4 LGAs daily</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     LIFESTYLE SCENE CARDS — 5 scenes
+     ALL: African/brown-skin people, water only
+     ════════════════════════════════════════════ -->
+<section id="scenes">
+  <div class="inner">
+    <div class="rv">
+      <div class="lbl">Pure Hydration for Everyone</div>
+      <h2 class="h2">Water is life.<br><em>Live it fully.</em></h2>
+      <p class="sub">From athletes to families — AquaFresh keeps every Nigerian going strong, all day long.</p>
+    </div>
+
+    <!-- Row 1: 3 cards -->
+    <div class="sg3">
+
+      <!-- CARD 1: African man drinking water after workout -->
+      <div class="scard rv">
+        <!-- Black man drinking water bottle, post workout, brown skin -->
+        <img src="https://images.unsplash.com/photo-1594381898411-846e7d193883?w=700&q=80"
+             alt="African man drinking water after workout">
+        <div class="soverlay"></div>
+        <div class="scontent">
+          <div class="stag">Athletes</div>
+          <div class="stitle">Fuel every rep.</div>
+          <div class="squote">"Hydration powers every performance. Don't let your water let you down."</div>
+        </div>
+      </div>
+
+      <!-- CARD 2: African woman drinking water at home / kitchen -->
+      <div class="scard rv">
+        <!-- African woman drinking water, natural, home setting -->
+        <img src="https://images.unsplash.com/photo-1536922246289-88c42f957773?w=700&q=80"
+             alt="African woman drinking water at home">
+        <div class="soverlay"></div>
+        <div class="scontent">
+          <div class="stag">Home</div>
+          <div class="stitle">Start every morning right.</div>
+          <div class="squote">"Fresh water at home — delivered before you wake up if you need it."</div>
+        </div>
+      </div>
+
+      <!-- CARD 3: African athlete running / training with water -->
+      <div class="scard rv">
+        <!-- Runner / athlete training, hydrating, water bottle -->
+        <img src="https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=700&q=80"
+             alt="Athlete training and hydrating with water">
+        <div class="soverlay"></div>
+        <div class="scontent">
+          <div class="stag">Training</div>
+          <div class="stitle">Go the distance.</div>
+          <div class="squote">"Hydration is your competitive edge on every single run."</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Row 2: 2 cards -->
+    <div class="sg2">
+
+      <!-- CARD 4: African family with clean water -->
+      <div class="scard rv">
+        <!-- African / Nigerian family, clean water usage -->
+        <img src="https://images.unsplash.com/photo-1607748862156-7c548e7e98f4?w=700&q=80"
+             alt="African family with clean safe water">
+        <div class="soverlay"></div>
+        <div class="scontent">
+          <div class="stag">Families</div>
+          <div class="stitle">Pure home, happy life.</div>
+          <div class="squote">"Safe, clean water for every member of your family, every single day."</div>
+        </div>
+      </div>
+
+      <!-- CARD 5: African office worker drinking bottled water -->
+      <div class="scard rv">
+        <!-- Office professional drinking water, brown skin -->
+        <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=700&q=80"
+             alt="Office professional drinking water at work">
+        <div class="soverlay"></div>
+        <div class="scontent">
+          <div class="stag">Offices</div>
+          <div class="stitle">Keep your team sharp.</div>
+          <div class="squote">"A hydrated team is a productive team. We keep offices stocked."</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     PRODUCTS
+     Imagery: Water products only — no juice
+     ════════════════════════════════════════════ -->
+<section id="products">
+  <div class="inner">
+    <div class="rv">
+      <div class="lbl">Our Products</div>
+      <h2 class="h2">Fresh water,<br><em>every size.</em></h2>
+      <p class="sub">Six options for any need — sachets to kegs, all certified clean, all delivered fast.</p>
+    </div>
+    <div class="pgrid">
+
+      <!-- 500ml Sachets — water sachets pack -->
+      <div class="pcard rv" onclick="scrollToOrder()">
+        <div class="pimg">
+          <!-- Water sachet packs, clear water bags -->
+          <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=500&q=80"
+               alt="500ml sachet water pack">
+        </div>
+        <div class="pbody">
+          <div class="pname">500ml Sachet Water</div>
+          <div class="pdesc">Pack of 20 fresh sachets. Ideal for households, events, and daily hydration.</div>
+          <div class="pfooter">
+            <div class="pprice">₦500 <span>× 20 sachets</span></div>
+            <button class="pobtn">Order</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 1.5L Bottle — clear sealed water bottle -->
+      <div class="pcard rv" onclick="scrollToOrder()">
+        <div class="pimg">
+          <!-- Clear water bottle, sealed, pure water -->
+          <img src="https://images.unsplash.com/photo-1553361371-9b22f78e8b1d?w=500&q=80"
+               alt="1.5L sealed water bottle">
+        </div>
+        <div class="pbody">
+          <div class="pname">1.5L Bottle</div>
+          <div class="pdesc">Individual sealed bottle. Great for personal use and on-the-go hydration.</div>
+          <div class="pfooter">
+            <div class="pprice">₦350 <span>per bottle</span></div>
+            <button class="pobtn">Order</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5L Dispenser -->
+      <div class="pcard rv" onclick="scrollToOrder()">
+        <div class="pimg">
+          <!-- Water dispenser / small container, pure water -->
+          <img src="https://images.unsplash.com/photo-1548839140-29a749e1cf4d?w=500&q=80"
+               alt="5L water dispenser">
+          <span class="pbadge" style="background:var(--bl);color:#fff;">Popular</span>
+        </div>
+        <div class="pbody">
+          <div class="pname">5L Dispenser</div>
+          <div class="pdesc">Compact dispenser. Sweet spot for small families and desk use.</div>
+          <div class="pfooter">
+            <div class="pprice">₦800 <span>per bottle</span></div>
+            <button class="pobtn">Order</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 10L Dispenser -->
+      <div class="pcard rv" onclick="scrollToOrder()">
+        <div class="pimg">
+          <!-- Water dispenser, clean water, 10L jug -->
+          <img src="https://images.unsplash.com/photo-1600271886742-f049cd451bba?w=500&q=80"
+               alt="10L water dispenser">
+        </div>
+        <div class="pbody">
+          <div class="pname">10L Dispenser</div>
+          <div class="pdesc">Mid-size dispenser. Perfect for medium families and small offices.</div>
+          <div class="pfooter">
+            <div class="pprice">₦1,400 <span>per bottle</span></div>
+            <button class="pobtn">Order</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 20L Keg Filled -->
+      <div class="pcard rv" onclick="scrollToOrder()">
+        <div class="pimg">
+          <!-- Large water keg / jug, 20 litre, water delivery -->
+          <img src="https://images.unsplash.com/photo-1606168094336-48f8b0f0a44e?w=500&q=80"
+               alt="20L water keg filled">
+        </div>
+        <div class="pbody">
+          <div class="pname">20L Keg (Filled)</div>
+          <div class="pdesc">Full 20-litre keg with container. For large families and businesses.</div>
+          <div class="pfooter">
+            <div class="pprice">₦2,500 <span>keg included</span></div>
+            <button class="pobtn">Order</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 20L Keg Refill — best value -->
+      <div class="pcard rv" style="border-color:rgba(0,113,194,.3);background:linear-gradient(135deg,#f5f9ff,var(--ice));" onclick="scrollToOrder()">
+        <div class="pimg" style="background:linear-gradient(135deg,var(--pale),var(--ice));">
+          <!-- Clear water being poured, refill, pure water -->
+          <img src="https://images.unsplash.com/photo-1582552938357-32b906df40cb?w=500&q=80"
+               alt="20L keg refill water">
+          <span class="pbadge" style="background:#16a34a;color:#fff;">Best Value</span>
+        </div>
+        <div class="pbody">
+          <div class="pname">20L Keg (Refill)</div>
+          <div class="pdesc">Bring your empty keg, we fill it up. Most popular choice for regulars.</div>
+          <div class="pfooter">
+            <div class="pprice">₦1,500 <span>refill only</span></div>
+            <button class="pobtn" style="background:var(--bl);color:#fff;border-color:var(--bl);">Order</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     BULK DEALS
+     ════════════════════════════════════════════ -->
+<section id="bulk">
+  <div class="inner">
+    <div class="rv" style="text-align:center;">
+      <div class="lbl" style="color:var(--bll);">Bulk Orders</div>
+      <h2 class="h2" style="color:#fff;">Buy more, <em>save more.</em></h2>
+      <p class="sub" style="color:rgba(255,255,255,.48);margin:0 auto 3.5rem;">Order in bulk and unlock free gifts, priority dispatch, and exclusive perks.</p>
+    </div>
+    <div class="bgrid">
+      <div class="bcard rv">
+        <div class="bicon">🪣</div>
+        <div class="btitle">Starter Bundle</div>
+        <div class="bprice">3× 20L Keg Refills — ₦4,500</div>
+        <div class="bfree">🎁 FREE: 1 pack of 500ml sachets</div>
+        <div class="bperks">
+          <div>Same-day priority dispatch</div>
+          <div>Free delivery within zone</div>
+          <div>SMS order updates</div>
+        </div>
+      </div>
+      <div class="bcard feat rv">
+        <div class="bpop">Most Popular</div>
+        <div class="bicon">💧</div>
+        <div class="btitle">Family Pack</div>
+        <div class="bprice">5× 20L Keg Refills — ₦7,500</div>
+        <div class="bfree">🎁 FREE: 2 sachet packs + 2× 1.5L bottles</div>
+        <div class="bperks">
+          <div>Top priority dispatch</div>
+          <div>Free delivery + agent callback</div>
+          <div>WhatsApp support line</div>
+          <div>Monthly loyalty points</div>
+        </div>
+      </div>
+      <div class="bcard rv">
+        <div class="bicon">🏢</div>
+        <div class="btitle">Office / Business</div>
+        <div class="bprice">10×+ any product — custom pricing</div>
+        <div class="bfree">🎁 FREE: 5 sachet packs + branded cups</div>
+        <div class="bperks">
+          <div>Weekly subscription available</div>
+          <div>Invoice + receipt included</div>
+          <div>Dedicated account manager</div>
+          <div>Priority 1-hour delivery</div>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:1.5rem;">
+      <a href="#order" class="btn btn-blue">Claim a Bulk Deal →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     ORDER FORM — 3-step
+     ════════════════════════════════════════════ -->
+<section id="order">
+  <div class="inner">
+    <div class="olayout">
+
+      <div class="rv">
+        <div class="lbl">Place an Order</div>
+        <h2 class="h2">Ready when<br><em>you are.</em></h2>
+        <p class="sub">Fill in your details. We assign the nearest agent immediately after you confirm.</p>
+        <div class="osteps">
+          <div class="ostep"><div class="onum">1</div><div><div class="otitle">Your details</div><div class="odesc">Name, phone and delivery address.</div></div></div>
+          <div class="ostep"><div class="onum">2</div><div><div class="otitle">Choose products</div><div class="odesc">Pick quantities for each water size.</div></div></div>
+          <div class="ostep"><div class="onum">3</div><div><div class="otitle">Review and pay</div><div class="odesc">Confirm your order and choose payment.</div></div></div>
+          <div class="ostep"><div class="onum">4</div><div><div class="otitle">Agent dispatched</div><div class="odesc">Nearest agent is alerted instantly.</div></div></div>
+        </div>
+        <div class="payinfo">
+          <div class="payinfo-l">Accepted Payments</div>
+          <div class="payinfo-m">
+            <span>💵 Cash on Delivery</span>
+            <span>🏦 Bank Transfer</span>
+            <span>💳 Paystack</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="rv late">
+        <div class="fcard">
+          <div id="fmain">
+            <div class="fhead">New Order</div>
+            <div class="fsub">Step <span id="stepnum">1</span> of 3 — <span id="stepname">Your Details</span></div>
+            <div class="fprog">
+              <div class="pd on" id="pd1"></div>
+              <div class="pd"    id="pd2"></div>
+              <div class="pd"    id="pd3"></div>
+            </div>
+
+            <!-- STEP 1: Details -->
+            <div class="fstep on" id="fs1">
+              <div class="fg"><label class="flbl">Full Name</label><input type="text" class="fi" id="fn" placeholder="e.g. Emeka Okafor"></div>
+              <div class="fg"><label class="flbl">Phone Number</label><input type="tel" class="fi" id="fp" placeholder="e.g. 08012345678"></div>
+              <div class="fg">
+                <label class="flbl">Delivery Area (LGA)</label>
+                <select class="fsel" id="fl">
+                  <option value="">Select your area</option>
+                  <option>Port Harcourt City</option>
+                  <option>Obio-Akpor</option>
+                  <option>Eleme</option>
+                  <option>Oyigbo</option>
+                  <option>Ikwerre</option>
+                  <option>Emohua</option>
+                </select>
+              </div>
+              <div class="fg"><label class="flbl">Delivery Address</label><input type="text" class="fi" id="fa" placeholder="Street, landmark, gate colour..."></div>
+              <div class="fnav"><button class="bnext" onclick="nextStep(1)">Continue →</button></div>
+            </div>
+
+            <!-- STEP 2: Products -->
+            <div class="fstep" id="fs2">
+              <p style="font-size:.8rem;color:var(--mu);margin-bottom:1rem;">Select products and quantities</p>
+              <div id="pickers"></div>
+              <div class="ototal"><span class="otlbl">Order Total</span><span class="otval" id="rtotal">₦0</span></div>
+              <div class="fg"><label class="flbl">Special Instructions (optional)</label><textarea class="fta" id="fnotes" placeholder="Gate colour, landmarks, special requests..."></textarea></div>
+              <div class="fnav"><button class="bback" onclick="prevStep(2)">← Back</button><button class="bnext" onclick="nextStep(2)">Review Order →</button></div>
+            </div>
+
+            <!-- STEP 3: Review + Pay -->
+            <div class="fstep" id="fs3">
+              <p style="font-size:.82rem;color:var(--mu);margin-bottom:1rem;">Review your order before confirming</p>
+              <div id="summary" style="background:var(--off);border:1px solid var(--br);border-radius:var(--rsm);padding:1.2rem;margin-bottom:1rem;"></div>
+              <div class="fg">
+                <label class="flbl">Payment Method</label>
+                <div class="paymethods">
+                  <div class="payopt sel" id="pay-cash"     onclick="selectPay('cash')">    <div class="payico">💵</div><div class="paylbl">Cash on Delivery</div></div>
+                  <div class="payopt"     id="pay-transfer" onclick="selectPay('transfer')"><div class="payico">🏦</div><div class="paylbl">Bank Transfer</div></div>
+                  <div class="payopt"     id="pay-paystack" onclick="selectPay('paystack')"><div class="payico">💳</div><div class="paylbl">Paystack</div></div>
+                </div>
+                <div class="payhint" id="payhint">Payment collected at the door. Keep exact change ready if possible.</div>
+              </div>
+              <div class="fnav"><button class="bback" onclick="prevStep(3)">← Back</button><button class="bsubmit" id="subbtn" onclick="submitOrder()">Confirm Order ✓</button></div>
+            </div>
+          </div>
+
+          <!-- ORDER SUCCESS STATE -->
+          <div id="osuccess">
+            <div class="sucico">✓</div>
+            <div class="suctitle">Order Confirmed!</div>
+            <div class="sucsub">Your order is received. An agent is being assigned and will contact you shortly.</div>
+            <div class="oidchip" id="coid">AQF-...</div>
+            <div style="display:flex;flex-direction:column;gap:.75rem;">
+              <a href="#track" class="btn btn-blue" style="justify-content:center;">Track My Order</a>
+              <a href="https://t.me/jazmynewater_bot" target="_blank" class="btn btn-tg" style="justify-content:center;">Updates on Telegram</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     TRACK ORDER
+     ════════════════════════════════════════════ -->
+<section id="track">
+  <div class="tcont">
+    <div class="rv">
+      <div class="lbl">Track Order</div>
+      <h2 class="h2">Where is<br><em>your water?</em></h2>
+      <p class="sub" style="margin:0 auto;">Enter your Order ID to see live delivery status.</p>
+    </div>
+    <div class="tcard rv">
+      <label class="flbl">Order ID</label>
+      <div class="trow">
+        <input type="text" class="fi" id="tinput" placeholder="AQF-20260310-4475" style="text-transform:uppercase;">
+        <button class="btntrack" onclick="trackOrder()">Track →</button>
+      </div>
+      <div id="tres">
+        <div class="tscard">
+          <div class="thead2">
+            <div>
+              <div style="font-size:.7rem;color:var(--mu);font-weight:700;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.06em;">Order</div>
+              <div id="toid" style="font-family:monospace;font-size:.9rem;font-weight:700;color:var(--tx);"></div>
+              <div id="tdetail" style="font-size:.8rem;color:var(--mu);margin-top:.2rem;"></div>
+            </div>
+            <div id="tbadge" class="sbadge"></div>
+          </div>
+          <div class="tl" id="tl"></div>
+        </div>
+      </div>
+      <div id="tnf"><div style="font-size:1.5rem;margin-bottom:.5rem;">🔍</div><div style="font-size:.88rem;color:var(--mid);">Order not found. Please check the ID.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     AGENT PORTAL
+     ════════════════════════════════════════════ -->
+<section id="agent">
+  <div class="agent-inner">
+    <div class="aghead rv">
+      <div class="lbl" style="color:var(--bll);">For Delivery Agents</div>
+      <h2>Your delivery<br><em>command centre.</em></h2>
+      <p>Manage all your deliveries from Telegram. Three simple commands, instant updates.</p>
+    </div>
+    <div class="aggrid">
+      <div class="agcard rv">
+        <span class="agico">🟢</span>
+        <div class="agtitle">Go Online</div>
+        <div class="agcmd">/available</div>
+        <div class="agdesc">Tell the system you are ready. You immediately start receiving new order assignments in your zone.</div>
+      </div>
+      <div class="agcard rv">
+        <span class="agico">🚐</span>
+        <div class="agtitle">Order Picked Up</div>
+        <div class="agcmd">/picked AQF-XXXXX</div>
+        <div class="agdesc">Confirm you collected the order. The customer is instantly notified their water is on its way.</div>
+      </div>
+      <div class="agcard rv">
+        <span class="agico">✅</span>
+        <div class="agtitle">Delivered</div>
+        <div class="agcmd">/delivered AQF-XXXXX</div>
+        <div class="agdesc">Mark as delivered. Customer notified, your stats update, and you are set back to available.</div>
+      </div>
+    </div>
+    <div class="jcard rv">
+      <h3>Your Delivery Journey</h3>
+      <div class="jflow">
+        <div class="jstep"><div class="jico">📱</div><div class="jlbl">Receive Alert</div></div>
+        <div class="jarr">→</div>
+        <div class="jstep"><div class="jico">🗺️</div><div class="jlbl">View Maps</div></div>
+        <div class="jarr">→</div>
+        <div class="jstep"><div class="jico">🚐</div><div class="jlbl">Pick Up Water</div></div>
+        <div class="jarr">→</div>
+        <div class="jstep"><div class="jico">📍</div><div class="jlbl">Navigate</div></div>
+        <div class="jarr">→</div>
+        <div class="jstep"><div class="jico">💧</div><div class="jlbl">Deliver Water</div></div>
+        <div class="jarr">→</div>
+        <div class="jstep"><div class="jico">⭐</div><div class="jlbl">Customer Rates</div></div>
+        <div class="jarr">→</div>
+        <div class="jstep"><div class="jico">💰</div><div class="jlbl">Earnings Updated</div></div>
+      </div>
+    </div>
+    <div class="agcta rv">
+      <div>
+        <h3>Join as an Agent</h3>
+        <p>Start your AquaFresh delivery journey on Telegram. Send /available and start earning today.</p>
+      </div>
+      <a href="https://t.me/jazmynewater_bot" target="_blank" class="btn" style="background:white;color:#0088cc;flex-shrink:0;white-space:nowrap;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.248l-2.008 9.461c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.871.76z"/></svg>
+        Open @jazmynewater_bot
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     CONTACT
+     ════════════════════════════════════════════ -->
+<section id="contact">
+  <div class="cgrid">
+    <div class="rv">
+      <div class="lbl">Get in Touch</div>
+      <h2 class="ctitle">Questions?<br><em>We're here.</em></h2>
+      <p class="cdesc">Reach us on Telegram for the fastest response, or order directly through our bot — available 24 hours a day.</p>
+      <div class="citem"><div class="cion">📍</div><div><div class="cilbl">Location</div><div class="cival">Rivers State, Nigeria</div></div></div>
+      <div class="citem"><div class="cion">⏰</div><div><div class="cilbl">Hours</div><div class="cival">7:00 AM – 9:00 PM daily</div></div></div>
+      <div class="citem"><div class="cion">🚚</div><div><div class="cilbl">Delivery Time</div><div class="cival">2–3 hours after confirmation</div></div></div>
+      <div class="citem"><div class="cion">💳</div><div><div class="cilbl">Payments</div><div class="cival">Cash · Bank Transfer · Paystack</div></div></div>
+    </div>
+    <div class="rv late">
+      <div class="tgcard">
+        <h3>Order on Telegram</h3>
+        <p>Our AI bot takes your order, confirms it, and dispatches an agent in minutes. Available 24/7.</p>
+        <a href="https://t.me/jazmynewater_bot" target="_blank" class="btn" style="background:white;color:#0088cc;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.248l-2.008 9.461c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.871.76z"/></svg>
+          @jazmynewater_bot
+        </a>
+      </div>
+      <div class="dzones">
+        <div class="dzlbl">We deliver to</div>
+        <div class="dzgrid">
+          <div class="dzitem">Port Harcourt City</div>
+          <div class="dzitem">Obio-Akpor</div>
+          <div class="dzitem">Eleme / Oyigbo</div>
+          <div class="dzitem">Ikwerre / Emohua</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     FOOTER
+     ════════════════════════════════════════════ -->
+<footer>
+  <div class="finner">
+    <div class="fbrand">Aqua<span>Fresh</span> Waters</div>
+    <ul class="flinks">
+      <li><a href="#products">Products</a></li>
+      <li><a href="#bulk">Bulk Deals</a></li>
+      <li><a href="#order">Order</a></li>
+      <li><a href="#track">Track</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="fcopy">© 2026 AquaFresh Waters · Rivers State, Nigeria</div>
+  </div>
+</footer>
+
+<!-- Toast notification -->
+<div class="toast" id="toast"></div>
+
+<!-- ════════════════════════════════════════════
+     CHATBOT — directs to Telegram or WhatsApp
+     ════════════════════════════════════════════ -->
+<button id="chatbtn" onclick="toggleChat()" aria-label="Chat with us">
+  <div class="cpulse"></div>
+  <svg class="ico-open" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+    <path d="M8 12h.01M12 12h.01M16 12h.01M21 3H3a1 1 0 00-1 1v14a1 1 0 001 1h4l4 4 4-4h6a1 1 0 001-1V4a1 1 0 00-1-1z"/>
+  </svg>
+  <svg class="ico-close" width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+  </svg>
+</button>
+
+<div id="chatwin">
+  <div class="chhead">
+    <div class="chav">💧</div>
+    <div>
+      <div class="chtitle">AquaFresh Support</div>
+      <div class="chstatus">Online · Replies instantly</div>
+    </div>
+  </div>
+  <div class="chmsg" id="chmsg"></div>
+  <div class="chfoot">
+    <input type="text" class="chinput" id="chinput" placeholder="Type a message..." onkeydown="if(event.key==='Enter')sendMsg()">
+    <button class="chsend" onclick="sendMsg()">
+      <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+      </svg>
+    </button>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════
+     JAVASCRIPT
+     ════════════════════════════════════════════ -->
+<script>
+// ════════════════════════════════════════════════════════════════
+//
+//  ░█████╗░░██████╗░██╗░░░██╗░█████╗░███████╗██████╗░███████╗░██████╗██╗░░██╗
+//  ██╔══██╗██╔═══██╗██║░░░██║██╔══██╗██╔════╝██╔══██╗██╔════╝██╔════╝██║░░██║
+//  ███████║██║██╗██║██║░░░██║███████║█████╗░░██████╔╝█████╗░░╚█████╗░███████║
+//  ██╔══██║╚██████╔╝██║░░░██║██╔══██║██╔══╝░░██╔══██╗██╔══╝░░░╚═══██╗██╔══██║
+//  ██║░░██║░╚═██╔═╝░╚██████╔╝██║░░██║██║░░░░░██║░░██║███████╗██████╔╝██║░░██║
+//  ╚═╝░░╚═╝░░░╚═╝░░░░╚═════╝░╚═╝░░╚═╝╚═╝░░░░╚═╝░░╚═╝╚══════╝╚═════╝░╚═╝░░╚═╝
+//
+//  ╔══════════════════════════════════════════════════════════════╗
+//  ║  EDIT THIS CONFIG BLOCK — everything you need to change is   ║
+//  ║  right here. No need to touch the HTML or CSS sections.      ║
+//  ╚══════════════════════════════════════════════════════════════╝
+
+const CONFIG = {
+
+  // ── BUSINESS INFO ────────────────────────────────────────────
+  BUSINESS:  'AquaFresh Waters',
+  TAGLINE:   'Cleanse Your Nerves',
+  LOCATION:  'Rivers State, Nigeria',
+
+  // ── CONTACT CHANNELS ─────────────────────────────────────────
+  // Update WHATSAPP_NUMBER with your real WhatsApp number
+  // Format: country code + number, no +, no spaces
+  // Example Nigeria: 2348012345678
+  TELEGRAM_LINK:     'https://t.me/jazmynewater_bot',
+  TELEGRAM_USERNAME: '@jazmynewater_bot',
+  WHATSAPP_NUMBER:   '2348000000000',       // ← CHANGE THIS
+  WHATSAPP_MSG:      'Hi AquaFresh! I want to order water.',
+
+  // ── WEBHOOK ──────────────────────────────────────────────────
+  // After adding a Webhook node in n8n:
+  // 1. Set method = POST
+  // 2. Set path = aquafresh-website-order
+  // 3. Copy the Production URL and paste it below
+  WEBHOOK_URL: 'YOUR_N8N_WEBHOOK_URL_HERE', // ← CHANGE THIS
+
+  // ── PRODUCTS ─────────────────────────────────────────────────
+  // Format: { name, price (in ₦), emoji, best (optional bool) }
+  // Add, remove, or change prices here — the form auto-updates
+  PRODUCTS: [
+    { name: '500ml Sachet Water (×20 pack)', price: 500,  emoji: '💦' },
+    { name: '1.5L Bottle',                  price: 350,  emoji: '🍶' },
+    { name: '5L Dispenser',                 price: 800,  emoji: '🫙' },
+    { name: '10L Dispenser',                price: 1400, emoji: '🫙' },
+    { name: '20L Keg (Filled)',              price: 2500, emoji: '🪣' },
+    { name: '20L Keg (Refill Only)',         price: 1500, emoji: '🪣', best: true },
+  ],
+
+  // ── PAYMENT HINTS ────────────────────────────────────────────
+  // These show inside the order form when the customer selects each payment type
+  PAY_HINTS: {
+    cash:     'Payment collected at the door. Keep exact change ready if possible.',
+    transfer: 'Transfer to our account before delivery. Account details sent after confirmation.',
+    paystack: 'Pay securely via card or bank. Paystack link sent after confirmation.',
+  },
+};
+
+// ════════════════════════════════════════════════════════════════
+//  END CONFIG — the code below powers the site
+//  Only edit below if you know what you are doing
+// ════════════════════════════════════════════════════════════════
+
+
+// ── Nav scroll + mobile ──────────────────────────────────────
+window.addEventListener('scroll', () =>
+  document.getElementById('nav').classList.toggle('scrolled', scrollY > 20));
+
+function toggleNav() { document.getElementById('mobnav').classList.toggle('open'); }
+function closeNav()  { document.getElementById('mobnav').classList.remove('open'); }
+
+
+// ── Scroll-reveal ────────────────────────────────────────────
+(function () {
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('vis'); obs.unobserve(e.target); }
+    });
+  }, { threshold: .1 });
+  document.querySelectorAll('.rv').forEach(el => obs.observe(el));
+})();
+
+
+// ── Toast ────────────────────────────────────────────────────
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+
+// ── Build product qty pickers from CONFIG ────────────────────
+(function buildPickers() {
+  const c = document.getElementById('pickers');
+  CONFIG.PRODUCTS.forEach((p, i) => {
+    const bv  = p.best
+      ? '<span style="font-size:.62rem;background:var(--ice);color:var(--bl);padding:.1rem .35rem;border-radius:4px;margin-left:4px;font-weight:700;">Best Value</span>'
+      : '';
+    const st  = p.best
+      ? 'border-color:rgba(0,113,194,.25);background:linear-gradient(135deg,#f5f9ff,var(--ice));'
+      : '';
+    c.innerHTML += `
+      <div class="ppicker" style="${st}">
+        <div class="ptop">
+          <span class="pn">${p.emoji} ${p.name}${bv}</span>
+          <span class="pp">₦${p.price.toLocaleString()}</span>
+        </div>
+        <div class="pctrl">
+          <button class="qb" onclick="chQty(${i},-1)">−</button>
+          <span  class="qv" id="q${i}">0</span>
+          <button class="qb" onclick="chQty(${i},+1)">+</button>
+        </div>
+      </div>`;
+  });
+})();
+
+function chQty(i, d) {
+  const el = document.getElementById('q' + i);
+  el.textContent = Math.max(0, +el.textContent + d);
+  const total = CONFIG.PRODUCTS.reduce(
+    (s, p, j) => s + p.price * (+document.getElementById('q' + j).textContent || 0), 0);
+  document.getElementById('rtotal').textContent = '₦' + total.toLocaleString();
+}
+
+function scrollToOrder() {
+  document.getElementById('order').scrollIntoView({ behavior: 'smooth' });
+  showToast('Select your products in the order form below');
+}
+
+
+// ── Multi-step form ──────────────────────────────────────────
+let step = 1, selPay = 'cash';
+
+function showStep(n) {
+  document.querySelectorAll('.fstep').forEach(s => s.classList.remove('on'));
+  document.getElementById('fs' + n).classList.add('on');
+  document.getElementById('stepnum').textContent  = n;
+  document.getElementById('stepname').textContent = ['Your Details', 'Products', 'Review & Pay'][n - 1];
+  for (let i = 1; i <= 3; i++)
+    document.getElementById('pd' + i).classList.toggle('on', i <= n);
+  step = n;
+}
+
+function nextStep(from) {
+  if (from === 1) {
+    if (!document.getElementById('fn').value.trim())               return showToast('Please enter your name');
+    if (document.getElementById('fp').value.trim().length < 10)    return showToast('Please enter a valid phone number');
+    if (!document.getElementById('fl').value)                       return showToast('Please select your delivery area');
+    if (!document.getElementById('fa').value.trim())                return showToast('Please enter your delivery address');
+    showStep(2);
+  } else if (from === 2) {
+    const total = CONFIG.PRODUCTS.reduce(
+      (s, p, j) => s + p.price * (+document.getElementById('q' + j).textContent || 0), 0);
+    if (!total) return showToast('Please select at least one product');
+    buildSummary();
+    showStep(3);
+  }
+}
+
+function prevStep(from) { showStep(from - 1); }
+
+function selectPay(m) {
+  selPay = m;
+  document.querySelectorAll('.payopt').forEach(o => o.classList.remove('sel'));
+  document.getElementById('pay-' + m).classList.add('sel');
+  document.getElementById('payhint').textContent = CONFIG.PAY_HINTS[m];
+}
+
+function buildSummary() {
+  const name  = document.getElementById('fn').value.trim();
+  const phone = document.getElementById('fp').value.trim();
+  const lga   = document.getElementById('fl').value;
+  const addr  = document.getElementById('fa').value.trim();
+  let items = [], total = 0;
+  CONFIG.PRODUCTS.forEach((p, i) => {
+    const q = +document.getElementById('q' + i).textContent || 0;
+    if (q > 0) { items.push({ n: p.name, q, s: p.price * q }); total += p.price * q; }
+  });
+  document.getElementById('summary').innerHTML = `
+    <div class="srow"><span class="sl">Name</span><span class="sv">${name}</span></div>
+    <div class="srow"><span class="sl">Phone</span><span class="sv">${phone}</span></div>
+    <div class="srow"><span class="sl">Area</span><span class="sv">${lga}</span></div>
+    <div class="srow"><span class="sl">Address</span><span class="sv">${addr}</span></div>
+    <div style="margin:.6rem 0;border-top:1px dashed var(--br);"></div>
+    ${items.map(it => `<div class="srow"><span class="sl">${it.n} ×${it.q}</span><span class="sv">₦${it.s.toLocaleString()}</span></div>`).join('')}
+    <div style="margin:.4rem 0;border-top:1px solid var(--br);"></div>
+    <div class="srow">
+      <span class="sl" style="font-weight:700;color:var(--tx);">Total</span>
+      <span class="sv" style="font-size:1.1rem;color:var(--bl);">₦${total.toLocaleString()}</span>
+    </div>`;
+}
+
+function submitOrder() {
+  const btn = document.getElementById('subbtn');
+  btn.textContent = 'Confirming…'; btn.disabled = true;
+
+  const name  = document.getElementById('fn').value.trim();
+  const phone = document.getElementById('fp').value.trim();
+  const lga   = document.getElementById('fl').value;
+  const addr  = document.getElementById('fa').value.trim();
+  const notes = document.getElementById('fnotes').value.trim();
+  let products = [], total = 0;
+  CONFIG.PRODUCTS.forEach((p, i) => {
+    const q = +document.getElementById('q' + i).textContent || 0;
+    if (q > 0) { products.push({ name: p.name, qty: q, unitPrice: p.price, subtotal: p.price * q }); total += p.price * q; }
+  });
+
+  const now = new Date(), pad = n => String(n).padStart(2, '0');
+  const orderId = `AQF-${now.getFullYear()}${pad(now.getMonth()+1)}${pad(now.getDate())}-${Math.floor(1000 + Math.random() * 9000)}`;
+  const pmLabel = { cash: 'Cash on Delivery', transfer: 'Bank Transfer', paystack: 'Paystack' }[selPay];
+
+  const payload = {
+    orderId, source: 'website',
+    name, phone, address: addr, lga,
+    products,
+    productsString: products.map(p => `${p.name} x${p.qty}`).join(', '),
+    totalAmount: total,
+    paymentMethod: pmLabel,
+    specialInstructions: notes,
+    submittedAt: now.toISOString(),
+  };
+
+  // Save to session for tracking
+  sessionStorage.setItem('lastOrder', JSON.stringify({ ...payload, status: 'Confirmed' }));
+
+  const showSuccess = () => {
+    document.getElementById('fmain').style.display = 'none';
+    document.getElementById('osuccess').style.display = 'block';
+    document.getElementById('coid').textContent = orderId;
+  };
+
+  // If webhook not configured, just demo success
+  if (CONFIG.WEBHOOK_URL === 'YOUR_N8N_WEBHOOK_URL_HERE') {
+    setTimeout(showSuccess, 1400);
+    return;
+  }
+
+  // Send to n8n
+  fetch(CONFIG.WEBHOOK_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  }).then(showSuccess).catch(showSuccess); // show success either way — n8n confirms separately
+}
+
+
+// ── Track order ──────────────────────────────────────────────
+function trackOrder() {
+  const v = document.getElementById('tinput').value.trim().toUpperCase();
+  if (!v) { showToast('Please enter an Order ID'); return; }
+  document.getElementById('tres').style.display = 'none';
+  document.getElementById('tnf').style.display  = 'none';
+
+  let order = null;
+  const stored = sessionStorage.getItem('lastOrder');
+  if (stored) {
+    const p = JSON.parse(stored);
+    if (p.orderId.toUpperCase() === v) order = p;
+  }
+  // Demo: any valid AQF- ID shows a sample dispatched state
+  if (!order && v.startsWith('AQF-'))
+    order = { orderId: v, name: 'Customer', address: 'Port Harcourt', lga: 'Port Harcourt City', status: 'Dispatched' };
+
+  if (!order) { document.getElementById('tnf').style.display = 'block'; return; }
+
+  document.getElementById('toid').textContent   = order.orderId;
+  document.getElementById('tdetail').textContent = order.name + ' · ' + order.address + ', ' + order.lga;
+
+  const sm = {
+    Pending:    { l: 'Pending',    c: 's-confirmed', s: [1,0,0,0,0] },
+    Confirmed:  { l: 'Confirmed',  c: 's-confirmed', s: [1,1,0,0,0] },
+    Dispatched: { l: 'Dispatched', c: 's-dispatched',s: [1,1,1,0,0] },
+    PickedUp:   { l: 'Picked Up',  c: 's-pickedup',  s: [1,1,1,1,0] },
+    Delivered:  { l: 'Delivered',  c: 's-delivered', s: [1,1,1,1,1] },
+  };
+  const s = sm[order.status] || sm['Confirmed'];
+  const b = document.getElementById('tbadge');
+  b.textContent = s.l; b.className = 'sbadge ' + s.c;
+
+  const steps = [
+    { t: 'Order Received',  d: 'Placed successfully' },
+    { t: 'Order Confirmed', d: 'Confirmed in system' },
+    { t: 'Agent Dispatched',d: 'Agent assigned to your order' },
+    { t: 'Water Picked Up', d: 'Agent collected your order' },
+    { t: 'Delivered',       d: 'Delivered to your door 🎉' },
+  ];
+  const last = s.s.lastIndexOf(1);
+  document.getElementById('tl').innerHTML = steps.map((st, i) => `
+    <div class="tli">
+      <div class="tdot ${s.s[i] ? (i === last ? 'act' : 'done') : ''}"></div>
+      <div class="tlcont">
+        <div class="tlt" style="color:${s.s[i] ? 'var(--tx)' : 'var(--mu)'}">${st.t}</div>
+        <div class="tld">${s.s[i] ? st.d : 'Waiting'}</div>
+      </div>
+    </div>`).join('');
+  document.getElementById('tres').style.display = 'block';
+}
+document.getElementById('tinput').addEventListener('keydown', e => { if (e.key === 'Enter') trackOrder(); });
+
+
+// ════════════════════════════════════════════════════════════════
+//  CHATBOT — Aqua the assistant
+//  Directs users to Telegram or WhatsApp based on their need
+// ════════════════════════════════════════════════════════════════
+let chatOpen = false, chatStarted = false;
+const chmsgEl = document.getElementById('chmsg');
+const nowTime = () => {
+  const d = new Date();
+  return `${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
+};
+
+function toggleChat() {
+  chatOpen = !chatOpen;
+  document.getElementById('chatbtn').classList.toggle('open', chatOpen);
+  document.getElementById('chatwin').classList.toggle('open', chatOpen);
+  if (chatOpen && !chatStarted) { chatStarted = true; setTimeout(startChat, 450); }
+}
+
+// Add bot message bubble
+function addBot(html) {
+  const d = document.createElement('div'); d.className = 'msg bot';
+  d.innerHTML = `<div class="bubble">${html}</div><div class="mtime">${nowTime()}</div>`;
+  chmsgEl.appendChild(d); chmsgEl.scrollTop = chmsgEl.scrollHeight;
+}
+
+// Add user message bubble
+function addUsr(txt) {
+  const d = document.createElement('div'); d.className = 'msg usr';
+  d.innerHTML = `<div class="bubble">${txt}</div><div class="mtime">${nowTime()}</div>`;
+  chmsgEl.appendChild(d); chmsgEl.scrollTop = chmsgEl.scrollHeight;
+}
+
+// Typing indicator
+function showTyping() {
+  const d = document.createElement('div'); d.className = 'msg bot'; d.id = 'typ';
+  d.innerHTML = '<div class="typing"><span></span><span></span><span></span></div>';
+  chmsgEl.appendChild(d); chmsgEl.scrollTop = chmsgEl.scrollHeight;
+}
+function hideTyping() { const t = document.getElementById('typ'); if (t) t.remove(); }
+
+// Bot reply with typing delay
+function botReply(html, delay = 900) {
+  showTyping();
+  setTimeout(() => { hideTyping(); addBot(html); }, delay);
+}
+
+// Quick reply buttons
+function addQRs(opts) {
+  const w = document.createElement('div'); w.className = 'msg bot';
+  w.innerHTML = `<div class="qrs">${opts.map(o =>
+    `<button class="qr" onclick="handleQR('${o.v}','${o.l.replace(/'/g,'')}')">${o.l}</button>`
+  ).join('')}</div>`;
+  setTimeout(() => { chmsgEl.appendChild(w); chmsgEl.scrollTop = chmsgEl.scrollHeight; }, 960);
+}
+
+// Channel cards (Telegram + WhatsApp)
+function addChannels() {
+  const TG = `<svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.248l-2.008 9.461c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.871.76z"/></svg>`;
+  const WA = `<svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>`;
+  const waURL = `https://wa.me/${CONFIG.WHATSAPP_NUMBER}?text=${encodeURIComponent(CONFIG.WHATSAPP_MSG)}`;
+  const w = document.createElement('div'); w.className = 'msg bot';
+  w.innerHTML = `<div class="chcards">
+    <a href="${CONFIG.TELEGRAM_LINK}" target="_blank" class="chcard tg">
+      <div class="chcico">${TG}</div>
+      <div class="chcinfo"><h5>Telegram Bot</h5><p>Instant · 24/7 · AI-powered</p></div>
+      <span class="charr">→</span>
+    </a>
+    <a href="${waURL}" target="_blank" class="chcard wa">
+      <div class="chcico">${WA}</div>
+      <div class="chcinfo"><h5>WhatsApp</h5><p>Chat with our team directly</p></div>
+      <span class="charr">→</span>
+    </a>
+  </div>`;
+  setTimeout(() => { chmsgEl.appendChild(w); chmsgEl.scrollTop = chmsgEl.scrollHeight; }, 1050);
+}
+
+// Disable used quick replies
+function disableQRs() {
+  document.querySelectorAll('.qr').forEach(b => {
+    b.disabled = true; b.style.opacity = '.4'; b.style.cursor = 'default';
+  });
+}
+
+// Initial greeting
+function startChat() {
+  setTimeout(() => {
+    addBot('👋 Hello! Welcome to <strong>AquaFresh Waters</strong>.<br>I\'m Aqua, your virtual assistant. How can I help you?');
+    addQRs([
+      { v: 'order',    l: '🛒 Place an Order' },
+      { v: 'track',    l: '📦 Track My Order' },
+      { v: 'products', l: '💧 Products & Prices' },
+      { v: 'bulk',     l: '🏢 Bulk Order' },
+      { v: 'contact',  l: '💬 Speak to someone' },
+    ]);
+  }, 500);
+}
+
+// Handle quick reply click
+function handleQR(val, label) { addUsr(label); disableQRs(); processIntent(val); }
+
+// Route intents to correct bot response
+function processIntent(intent) {
+  if (intent === 'order') {
+    botReply('Great! The easiest way to order is through one of our channels — open 24/7 and super fast 🚀');
+    setTimeout(() => botReply(
+      '<a href="#order" onclick="toggleChat()" style="color:var(--bl);font-weight:600;">Or fill the order form right here on the website →</a>',
+      400), 1050);
+    setTimeout(() => addChannels(), 1150);
+
+  } else if (intent === 'track') {
+    botReply('To track your order you need your <strong>Order ID</strong> — it looks like <span style="font-family:monospace;background:var(--ice);padding:.1rem .35rem;border-radius:4px;color:var(--bl);">AQF-20260310-4475</span>');
+    setTimeout(() => botReply(
+      '<a href="#track" onclick="toggleChat()" style="color:var(--bl);font-weight:600;">Go to Track Order section →</a>',
+      400), 1050);
+
+  } else if (intent === 'products') {
+    const list = CONFIG.PRODUCTS.map(p =>
+      `${p.emoji} <strong>${p.name}</strong> — ₦${p.price.toLocaleString()}`
+    ).join('<br>');
+    botReply('Here are our current prices:<br><br>' + list + '<br><br>All water is certified clean and delivered fresh 💧');
+    setTimeout(() => addQRs([
+      { v: 'order', l: 'Order now!' },
+      { v: 'bulk',  l: 'Bulk deal?' },
+      { v: 'done',  l: 'Just browsing 👍' },
+    ]), 1050);
+
+  } else if (intent === 'bulk') {
+    botReply('We have bulk deals with <strong>FREE gifts</strong> 🎁<br><br>🪣 <strong>Starter:</strong> 3× Kegs — ₦4,500 + free sachets<br>💧 <strong>Family:</strong> 5× Kegs — ₦7,500 + free sachets &amp; bottles<br>🏢 <strong>Business:</strong> 10×+ — custom pricing + account manager');
+    setTimeout(() => { botReply('Reach us to arrange your bulk order 👇', 600); }, 1050);
+    setTimeout(() => addChannels(), 1200);
+
+  } else if (intent === 'contact') {
+    botReply('Reach our team directly — we\'re available 7am to 9pm daily 😊');
+    setTimeout(() => addChannels(), 950);
+
+  } else if (intent === 'done') {
+    botReply('No problem! Feel free to come back any time. <strong>Cleanse your nerves</strong> 💧✨');
+
+  } else {
+    botReply('I\'m not sure I caught that — let me connect you with our team directly.');
+    setTimeout(() => addChannels(), 950);
+  }
+}
+
+// Handle typed messages with keyword matching
+function sendMsg() {
+  const inp = document.getElementById('chinput');
+  const txt = inp.value.trim(); if (!txt) return;
+  addUsr(txt); inp.value = ''; disableQRs();
+  const t = txt.toLowerCase();
+  if      (t.match(/order|buy|want|need|purchase/))         processIntent('order');
+  else if (t.match(/track|where|status|delivery|arrive/))   processIntent('track');
+  else if (t.match(/price|product|keg|sachet|bottle|how much|list|cost/)) processIntent('products');
+  else if (t.match(/bulk|office|business|company|wholesale/)) processIntent('bulk');
+  else if (t.match(/hi|hello|hey|good\s?(morning|afternoon|evening)/)) {
+    botReply('Hello! 👋 Great to have you here. How can I help today?');
+    addQRs([
+      { v: 'order',    l: '🛒 Order Water' },
+      { v: 'products', l: '💧 See Prices' },
+      { v: 'track',    l: '📦 Track Order' },
+    ]);
+  }
+  else processIntent('contact');
+}
+</script>
+</body>
+</html>
